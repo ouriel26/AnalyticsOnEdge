@@ -1,0 +1,46 @@
+cd()
+ls()
+getwd
+getwd()
+read.csv("USDA.csv")
+USDA = read.csv("USDA.csv")
+str(USDA)
+summary(USDA)
+USDA$Sodium
+which.max(USDA$Sodium)
+names(USDA)
+USDA$Description[265]
+HighSodium =subset(USDA, Sodium>10000)
+nrow(HighSodium)
+nrow(HighSodium)
+HighSodium$Description
+match("CAVIAR", USDA$Description)
+USDA$Sodium[4154]
+plot(USDA$Description, USDA$TotalFat)
+plot(USDA$Protein, USDA$TotalFat)
+plot(USDA$Protein, USDA$TotalFat, xlab = "Protein", ylab="Fat", main ="Protein Vs. Fat", col = "rd"" )
+plot(USDA$Protein, USDA$TotalFat, xlab = "Protein", ylab="Fat", main ="Protein Vs. Fat", col = "red" )
+plot(USDA$Protein, USDA$TotalFat, xlab = "Protein", ylab="Fat", main ="Protein Vs. Fat", col = "red" )
+hist(USDA$VitaminC, xlab= "Vitamin C (mg)", main = "Histogram of Vitamin C Levels")
+,
+hist(USDA$VitaminC, xlab= "Vitamin C (mg)", main = "Histogram of Vitamin C Levels", xlim = c(0, 100))
+CPS = read.csv("CPSData.csv")
+str(CPS)
+HISP_CPS = subset(CPS, Hispanic==1)
+str(HISP_CPS)
+summary(HISP_CPS)
+hist(HISP_CPS, xlab="Region", ylab ="EmploymentStatus", main = "Employment Vs. Region")
+plot(HISP_CPS, xlab="Region", ylab ="EmploymentStatus", main = "Employment Vs. Region")
+hist(HISP_CPS$Region, HISP_CPS$EmploymentStatus , xlab="Region", ylab ="EmploymentStatus", main = "Employment Vs. Region")
+plot(HISP_CPS$Region, HISP_CPS$EmploymentStatus , xlab="Region", ylab ="EmploymentStatus", main = "Employment Vs. Region")
+boxplot(HISP_CPS$Region, HISP_CPS$EmploymentStatus , xlab="Region", ylab ="EmploymentStatus", main = "Employment Vs. Region")
+boxplot?
+?boxplot
+boxplot(data=HISP_CPS)
+boxplot(x="EmploymentStatus", data=HISP_CPS)
+Region = HISP_CPS$Region
+EmploymentStatus = HISP_CPS$EmploymentStatus
+boxplot(Region ˜ EmploymentStatus, data=HISP_CPS)
+boxplot(Region ~ EmploymentStatus, data=HISP_CPS)
+boxplot( EmploymentStatus ~ Region, data=HISP_CPS)
+EmploymentStatus

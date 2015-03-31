@@ -1,0 +1,156 @@
+pisaTrain = read.csv("pisa2009train.csv")
+pisaTrain = read.csv("pisa2009train.csv")
+pisaTest = read.csv("pisa2009test.csv")
+str(pisaTrain)
+pisaTrain = na.omit(pisaTrain)#
+#
+pisaTest = na.omit(pisaTest)
+pisaTrain$raceeth = relevel(pisaTrain$raceeth, "White")#
+#
+pisaTest$raceeth = relevel(pisaTest$raceeth, "White")
+LinReg = lm(readingScore ~ ., data=pisaTrain)
+summary(LinReg)
+predTest = predict(pisaTest, LinReg)
+predTest = predict(LinReg, pisaTest)
+predTest
+summary(predTest)
+637.7 - 353.2
+SSE = ((predTest - pisaTest$readingScore)^2)
+SSE = sum((predTest - pisaTest$readingScore)^2)
+SSE
+RMSE = sqrt(SSE/nrow(pisaTest))
+RMSE
+mean(pisaTrain$readingScore)
+baselineScore = mean(pisaTrain$readingScore)
+SST = ((baselineScore - pisaTest$readingScore) ^ 2)
+SST
+SST = sum((baselineScore - pisaTest$readingScore) ^ 2)
+SST
+1 - SSE/SST
+FluTrain = read.csv("FluTrain.csv")
+summary(FluTrain)
+str(FluTrain)
+max(FluTrain , ILI)
+max(FluTrain , FluTrain$ILI)
+max(FluTrain[FluTrain$ILI])
+max(FluTrain$ILI)
+?max
+which.max(FluTrain$ILI)
+FluTrain[303]
+FluTrain[3]
+FluTrain[1][303]
+FluTrain[1,303]
+FluTrain[1;303]
+FluTrain[1,303]
+FluTrain[2,303]
+which.max(FluTrain$ILI)
+FluTrain$Week[303]
+str(FluTrain)
+which.max(FluTrain$Queries)
+which.max(FluTrain$ILI)
+hist(FluTrain$ILI)
+plot(log(FluTrain$ILI), FluTrain$Queries)
+plot((FluTrain$ILI), FluTrain$Queries)
+plot(log(FluTrain$ILI), FluTrain$Queries)
+plot((FluTrain$ILI), FluTrain$Queries)
+plot(log(FluTrain$ILI), FluTrain$Queries)
+FluTrend1 = lm(log(ILI) ~ Queries, data = FluTrain)
+summary(FluTrend1)
+cor(log(FluTrain$ILI), FluTrain$Queries)
+exp(-0.5* 0.8420333)
+log(1/0.8420333)
+0.8420333^2
+FluTest = read.csv("FluTest.csv")
+FluTest = read.csv("FluTest.csv")
+PredTest1 = predict(FluTrend1, newdata=FluTest)
+PredTest1 = exp(predict(FluTrend1, newdata=FluTest))
+?which
+which(PreddTest1, Week == 2012/03/11)
+which(PredTest1, Week == 2012/03/11)
+which(PredTest1, Week = 2012/03/11)
+?which
+which(PredTest)
+PredTest1
+FluTest
+which(FluTest$Week == 2012-03-11 - 2012-03-17)
+which(FluTest$Week == "2012-03-11 - 2012-03-17")
+PredTest1$ILI[11]
+PredTest1[11]
+(FluTest$ILI[11] - PredTest1[11])/FluTest$ILI[11]
+SSE = ((PredTest1 - FluTest1$ILI) ^2)
+SSE = ((PredTest1 - FluTest$ILI) ^2)
+RMSE = sqrt(SSE/nrow(PredTest1))
+RMSE
+SSE
+SSE = sum((PredTest1 - FluTest$ILI) ^2)
+RMSE = sqrt(SSE/nrow(PredTest1))
+RMSE
+SSE
+nrow(PredTest1)
+PredTest1
+RMSE = sqrt(SSE/nrow(FluTest))
+RMSE
+install.packages("zoo")
+install.packages("zoo")
+library(zoo)
+ILILag2 = lag(zoo(FluTrain$ILI), -2, na.pad=TRUE)
+ILILag2
+FluTrain
+plot(log(FluTrain$ILI), log(ILILag2))
+plot(log(ILILag2), log(FluTrain$ILI))
+FluTrain$ILILag2 = ILILag2
+FluTrend2 =lm (log(ILI) ~ log(ILILag2) + Queries, data=FluTrain)
+summary(FluTrend2)
+ILILag2 = lag(zoo(FluTest$ILI), -2, na.pad=TRUE)
+ILILag2
+FluTest$ILILag2 = ILILag2
+FluTest$ILILag2[1] = FluTrain$ILILag2[nrow(FluTrain)-1]
+FluTest$ILILag2[2] = FluTrain$ILILag2[nrow(FluTrain)]
+FluTest
+FluTest$ILILag2[2] = FluTrain$ILI[nrow(FluTrain)]
+FluTest$ILILag2[1] = FluTrain$ILI[nrow(FluTrain)-1]
+FluTest
+predTest2 = predict(FluTrend2, newdata=FluTest)
+predTest2 = exp(predict(FluTrend2, newdata=FluTest))
+SSE = sum((predTest2 - FluTest$ILI)^2)
+RMSE = sqrt(SSE/nrow(FluTest))
+RMSE
+exp(-1)
+1/(1+exp(1))
+quality = read.csv("quality.csv")
+str(quality)
+table(quality$PoorCare)
+install.packages("caTools")
+library(caTools)
+set.seed(88)
+split = sample.split(quality$PoorCare, splitRatio = 0.75)
+split = sample.split(quality$PoorCare, SplitRatio = 0.75)
+qualityTrain = subset(quality, split == TRUE)
+qualityTest = subset(quality, split == FALSE)
+nro(qualityTest)
+nrow(qualityTest)
+QualityLog = glm(PoorCare ~ OfficeVisits + Narcotics + data = quality, family=binomial)
+QualityLog = glm(PoorCare ~ OfficeVisits + Narcotics + data = qualityTrain, family=binomial)
+QualityLog = glm(PoorCare ~ OfficeVisits + Narcotics , data = qualityTrain, family=binomial)
+summary(QualityLog)
+predictTrain = predict(QualityLog, type = "response")
+summary(predictTrain)
+tapply(predictTrain, qualityTrain$PoorCare, mean)
+QualityLog2 = glm(PoorCare ~ StartedOnCombination + ProviderCount , data = qualityTrain, family=binomial)
+summary(QualityLog2)
+table(qualityTrain$PoorCare, predictTrain > 0.5)
+table(qualityTrain$PoorCare, predictTrain > 0.7)
+table(qualityTrain$PoorCare, predictTrain > 0.2)
+install.packages("ROCR")
+library(ROCR)
+ROCRpred = prediction(predictTrain, qualityTrain$PoorCare)
+ROCRperf = performance(ROCpred, "tpr", "fpr")
+ROCRperf = performance(ROCRpred, "tpr", "fpr")
+plot(ROCRperf)
+plot(ROCRperf, colorize= TRUE)
+plot(ROCRperf, colorize= TRUE, print.cutoffs.at = seq(0,1,0.1), text.adj = c(-0.2, 1.7) )
+predictTest = predict(QualityLog, type="response", newdata = qualityTest )
+ROCRpredTest = prediction(predictTest, qualityTest$PoorCare)
+auc = as.numeric(performance(ROCRpredTest, "auc")@y.values)
+auc
+performance(ROCRpredTest, "auc")
