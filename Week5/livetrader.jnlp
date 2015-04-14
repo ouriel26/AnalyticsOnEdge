@@ -1,0 +1,97 @@
+
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+
+
+<jnlp spec="1.0+" codebase="http://fortuneo.ariane-software.com/livetrader/">
+  <information>
+    <title>Fortuneo LIVE TRADER</title>
+    <vendor>Ariane Software</vendor>
+    <homepage href="http://www.fortuneo.fr"/>
+    <description>Plateforme de trading Fortuneo</description>
+    <shortcut>
+      <desktop/>
+    </shortcut>
+  </information>
+  <information os="Mac">
+    <title>Fortuneo LIVE TRADER</title>
+    <vendor>Ariane Software</vendor>
+    <icon kind="shortcut" href="images/fortuneo.icns"/>
+  </information>
+  <information os="Windows">
+    <title>Fortuneo LIVE TRADER</title>
+    <vendor>Ariane Software</vendor>
+    <icon kind="shortcut" href="images/fortuneo.ico"/>
+  </information>
+  <information os="Linux">
+    <title>Fortuneo LIVE TRADER</title>
+    <vendor>Ariane Software</vendor>
+    <icon kind="shortcut" href="images/fortuneo.svg"/>
+  </information>
+  <security>
+    <all-permissions/>
+  </security>
+  
+  <!-- Ressources communes -->
+  <resources>
+    <java version="1.5+" max-heap-size="512m"/>
+    <jar href="lib/axialfinance-platform.jar" main="true"/>
+    <jar href="lib/arianesoftware-commun.jar"/>
+    <jar href="lib/arianesoftware-quoteprovider-api.jar"/>
+    <jar href="lib/arianesoftware-referentiel-data.jar"/>
+    <jar href="lib/arianesoftware-refmodel.jar"/>
+    <jar href="lib/arianesoftware-webdata-stub.jar"/>
+    <jar href="lib/hessian-4.0.7-gzip.jar"/>
+    <jar href="lib/hsqldb-1.8.0.7.jar"/>
+    <jar href="lib/commons-beanutils-1.7.0.jar"/>
+    <jar href="lib/commons-codec-1.3.jar"/>
+    <jar href="lib/commons-collections-3.1.jar"/>
+    <jar href="lib/commons-configuration-1.4.jar"/>
+    <jar href="lib/commons-dbcp-1.2.2.jar"/>
+    <jar href="lib/commons-dbutils-1.1.jar"/>
+    <jar href="lib/commons-io-1.4.jar"/>
+    <jar href="lib/commons-lang-2.4.jar"/>
+    <jar href="lib/commons-logging-1.1.1.jar"/>
+    <jar href="lib/commons-pool-1.3.jar"/>
+    <jar href="lib/js-1.7R3.jar"/>
+    <jar href="lib/eawt.jar"/>
+    <jar href="lib/miglayout-3.7.4-swing.jar"/>
+    <jar href="lib/trident-1.3.jar"/>
+    <jar href="lib/balloontip-1.2.1.jar"/>
+  </resources>
+
+  <!-- Ressources propres à la variante -->
+  <resources>
+    <jar href="lib/arianesoftware-quoteprovider-arianesoftware.jar"/>
+    <jar href="lib/arianesoftware-quoteprovider-teledata.jar"/>
+    <jar href="lib/arianesoftware-session-api.jar"/>
+    <jar href="lib/arianesoftware-streaming-api.jar"/>
+    <jar href="lib/arianesoftware-streaming-qpid.jar"/>
+    <jar href="lib/arianesoftware-streaming-teledata.jar"/>
+    <jar href="lib/fortuneo-thrift-1.8.1.jar"/>
+    <jar href="lib/libthrift-0.2.jar"/>
+    <jar href="lib/teledata-mdg-2.2.3.jar"/>
+    <jar href="lib/infonode-docking-1.6.1.jar"/>
+    <jar href="lib/qpid-common-0.11.jar"/>
+    <jar href="lib/swingx-1.6.1.jar"/>
+    <jar href="lib/swing-worker-1.2.jar"/>
+    <jar href="lib/substance-6.1.jar"/>
+    <jar href="lib/rome-1.0.jar"/>
+    <jar href="lib/jdom-1.0.jar"/>
+  </resources>
+
+  <resources>
+
+
+
+
+    <property name="jnlp.codebase" value="http://fortuneo.ariane-software.com/livetrader/"/>
+  </resources>
+
+  <resources os="Mac">
+    <property name="apple.laf.useScreenMenuBar" value="true"/>
+  </resources>
+    
+  <application-desc main-class="com.arianesoftware.platform.LiveTrader"/>
+</jnlp>

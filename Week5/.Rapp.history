@@ -1,0 +1,245 @@
+wiki = read.csv("wiki.csv", stringsAsFactors=FALSE)
+wiki = read.csv("wiki.csv", stringsAsFactors=FALSE)
+wiki
+str(wiki)
+wiki$Vandal = as.factor(wiki$Vandal)
+str(wiki)
+sum(wiki$Vandal)
+sum(wiki$Vandal==1)
+corpusAdded = Corpus(VectorSource(wiki$Added))
+library(tm)
+corpusAdded = Corpus(VectorSource(wiki$Added))
+corpusAdded = tm_map(corpusAdded, removeWords, stopwords("english"))
+corpusAdded = tm_map(corpusAdded, stemDocument)
+corpusAdded[[1]]
+dtm = DocumentTermMatrix(corpusAdded)
+dtm
+length(stopwords("english"))
+dtm = removeSparseTerms(dtm, 0.97)
+sparseAdded = dtm
+sparseAdded
+dtm = DocumentTermMatrix(corpusAdded)
+sparseAdded = removeSparseTerms(dtm, 0.997)
+sparseAdded
+wordsAdded = as.data.frame(sparseAdded)
+wordsAdded = as.data.frame(as.matrix(sparseAdded))
+colnames(wordsAdded)
+colnames(wordsAdded) = paste("A", colnames(wordsAdded))
+corpusRemoved = Corpus(VectorSource(wiki$Removed))
+corpusRemoved = tm_map(corpusRemoved, removeWords, stopwords("english"))
+corpusRemoved = tm_map(corpusRemoved, stemDocument)
+dtm = DocumentTermMatrix(corpusRemoved)
+sparseRemoved = removeSparseTerms(dtm, 0.997)
+wordsRemoved = as.data.frame(sparseRemoved)
+wordsRemoved = as.data.frame(as.matrix(sparseRemoved))
+colnames(wordsRemoved) = paste("R", colnames(wordsRemoved))
+str(wordsRemoved)
+wikiWords = cbind(wordsAdded, wordsRemoved)
+str(wikiWords)
+wikiWords$Vandal = wiki$Vandal
+str(wikiWords)
+set.seed(123)
+library(caTools)
+spl = split.sample(wikiWords, splitRatio = 0.7)
+spl = sample.split(wikiWords, splitRatio = 0.7)
+spl = sample.split(wikiWords$Vandal, splitRatio = 0.7)
+spl = sample.split(wikiWords$Vandal, 0.7)
+train=subset(wikiWords, spl ==TRUE)
+test=subset(wikiWords, spl ==FALSE)
+table(test$Vandal)
+618/(618+545)
+library(rpart)#
+library(rpart.plot)
+wikiCART = rpart(Vandal ˜)
+wikiCART = rpart(Vandal ~ ., data=train, method="class")
+prp(wikiCART)
+pred = predict(wikiCART, newdata=test)
+pred[1:10]
+pred[1:10,]
+pred[1:100,]
+pred[1:500,]
+pred = predict(wikiCART, newdata=test, type="class")
+pred[1:500,]
+pred[1:500]
+table(test$Vandal, pred)
+630/(630+533)
+wikiWords2 = wikiWords
+wikiWords2$HTTP = ifelse(grepl("http",wiki$Added,fixed=TRUE), 1, 0)
+sum(wikiWords2$HTTP == TRUE)
+wikiTrain2 = subset(wikiWords2, spl==TRUE)#
+#
+wikiTest2 = subset(wikiWords2, spl==FALSE)
+wikiCART2 = rpart(Vandal ~ ., data=wikiTrain2, method="class")
+pred2= predict(wikiCART2, newdata=wikiTest2, type="class")
+table(wikiTest2#Vandal,pred2)
+d
+table(wikiTest2$Vandal,pred2)
+666/49
+666/497
+666/(497+666)
+dtmAdded = DocumentTermMatrix(corpusAdded)
+dtmRemoved = DocumentTermMatrix(corpusRemoved)
+wikiWords2$NumWordsAdded = rowSums(as.matrix(dtmAdded))#
+#
+wikiWords2$NumWordsRemoved = rowSums(as.matrix(dtmRemoved))
+sum(wikiWords2$NumWordsAdded)
+sum(wikiWords2$NumWordsAdded)/nrow(wikiWords2)
+wikiTrain2 = subset(wikiWords2, spl==TRUE)#
+#
+wikiTest2 = subset(wikiWords2, spl==FALSE)
+wikiCART2 = rpart(Vandal ~ ., data=wikiTrain2, method="class")
+pred2= predict(wikiCART2, newdata=wikiTest2, type="class")
+table(wikiTest2$Vandal,pred2)
+(514+548)/(514)
+248
+(514+548)/(514+248+104+297)
+(514+248)/(514+248+104+297)
+wikiWords3 = wikiWords2
+wikiWords3$Minor = wiki$Minor#
+#
+wikiWords3$Loggedin = wiki$Loggedin
+wikiTrain3 = subset(wikiWords3, spl==TRUE)#
+#
+wikiTest3 = subset(wikiWords3, spl==FALSE)
+wikiCART3 = rpart(Vandal ~ ., data=wikiTrain3, method="class")
+pred3= predict(wikiCART3, newdata=wikiTest3, type="class")
+table(wikiTest3$Vandal,pred3)
+(595+241)/(595+241+23+304)
+prp(wikiCART3)
+trial = read.csv("clincal_trial.csv", stringsAsFactors=FALSE)
+trial = read.csv("clinical_trial.csv", stringsAsFactors=FALSE)
+str(trial)
+max(trial$abstract, nchar)
+max?
+?max
+which.max(trial$abstract)
+tapply(trial$abstract, nchar)
+tapply(trial$abstract, max(nchar(trial$abstract)))
+nchar(trial$abstract)
+max(nchar(trial$abstract))
+sum(nchar(trial$abstract)==0)
+trial$title[nchar(title) == min(nchar(trial$title))]
+which
+which(trial, nchar(title) == min(trial$title))
+which(nchar(trial$title) == min(trial$title))
+which.min(nchar(trial$title))
+trial$title[which.min(nchar(trial$title))]
+corpusTitle = Corpus(VectorSource(trial$title))
+corpusAbstract = Corpus(VectorSource(trial$abstract))
+corpusAbstract = tm_map(corpusAbstract, tolower)
+corpusTitle = tm_map(corpusTitle, tolower)
+corpusTitle = tm_map(corpusTitle, PlainTextDocument)#
+#
+corpusAbstract = tm_map(corpusAbstract, PlainTextDocument)
+corpusAbstract = tm_map(corpusAbstract, removePunctuation)
+corpusTitle = tm_map(corpusTitle, removePunctuation)
+corpusTitle = tm_map(corpusTitle, removeWords, stopwords("english"))
+corpusAbstract = tm_map(corpusAbstract, removeWords, stopwords("english"))
+corpusTitle = tm_map(corpusTitle, stemDocument)
+corpusAbstract = tm_map(corpusAbstract, stemDocument)
+corpusTitle = tm_map(corpusTitle, stemDocument)
+dtmTitle = DocumentTermMatrix(corpusTitle)
+dtmAbstract = DocumentTermMatrix(corpusAbstract)
+dtm = removeSparseTerms(dtm, 0.95)
+dtmTitle = dtm
+dtmAbstract = removeSparseTerms(dtmAbstract, 0.95)
+dtmTitle = removeSparseTerms(dtmTitle, 0.95)
+dtmTitle = as.data.frame(dtmTitle)
+dtmTitle = as.data.frame(as.matrix(dtmTitle))
+dtmAbstract = as.data.frame(as.matrix(dtmAbstract))
+str(dtmTitle)
+str(corpusTitle)
+dtmTitle = DocumentTermMatrix(corpusTitle)
+str(dtmTitle)
+dtmTitle = removeSparseTerms(dtmTitle, 0.95)
+str(dtmTitle)
+dtmTitle = as.data.frame(dtmTitle)
+str(dtmTitle)
+dtmTitle = as.data.frame(as.matrix(dtmTitle))
+str(dtmTitle)
+str(dtmAbstract)
+which.max(colSums(dtmAbstract))
+colnames(dtmTitle) = paste0("T", colnames(dtmTitle))
+colnames(dtmAbstract) = paste0("A", colnames(dtmAbstract))
+dtm = cbind(dtmTitle, dtmAbstract)
+str(dtm)
+dtm$trial = trial$trial
+str(dtm)
+set.seed(144)
+spl = sample.split(dtm$trial, 0.7)
+train = subset(dtm, spl == TRUE)
+test = subset(dtm, spl == FALSE)
+table(train$trial == FALSE)
+table(train$trial)
+730/(730+572)
+trialCART = rpart(trial ~., data=train)
+prp(trialCART)
+predT = predict(trialCART)
+predT[,2]
+predT
+str(predT)
+max(predT)
+predTest = predict(trialCART, newdata=test, type = "class")
+trialCART = rpart(trial ~., data=train, method="class")
+str(predT)
+predT[,2]
+predTest = predict(trialCART, newdata=test, type = "class")
+table(dtm$trial, predTest)
+predTest
+nrow(predTest)
+table(test$trial, predTest)
+(261+52)/(261+162+52+83)
+(261+162)/(261+162+52+83)
+162/245
+261/313
+predT
+predT = predict(trialCART, type="class")
+table(train$trial, predT)
+(631+441)/(631+441+99+131)
+441/(131+441)
+631/(730)
+predROC = prediction(predTest, test$trial)
+library(ROCR)
+predROC = prediction(predTest, test$trial)
+predROC = prediction(predTest[,2], test$trial)
+predTest.prod
+predTest.prob
+predTest
+str(predTest)
+predTest[1]
+predTest[2]
+predTest[1000]
+predTest[1,2]
+predTest = predict(trialCART, newdata= test)
+predTest[1,2]
+predROC = prediction(predTest[,2], test$trial)
+perfROC = performance(predROC, "tpr", "fpr")
+plot(perfROCR, colorize=TRUE)
+plot(perfROC, colorize=TRUE)
+auc = performance(predROC, "auc")@y.values
+auc
+emails = read.csv("emails.csv", stringsAsFactors=FALSE)
+nrow(emails)
+nrow(emails$spam==1)
+emails$spam
+table(emails, spam==1)
+table(emails, emails$spam==1)
+table(emails$spam)
+emails$email[1:10,]
+emails$email[1:10]
+emails$email[1:10,2]
+emails$email
+emails$text[1:10]
+which.max(emails$text)
+which.max(nchar(emails$text))
+nchar(emails$text[2651])
+which.min(nchar(emails$text))
+corpus = Corpus(VectorSource(emails))
+corpus = tm_map(corpus, tolower)
+corpus = tm_map(corpus, removePunctuation)
+corpus = tm_map(corpus, removeWords, stopwords("english"))
+corpus = tm_map(corpus, stemDocument)
+dtm = DocumentTermMatrix(corpus)
+str(dtm)
+corpus[[1]]
+library(SnowballC)

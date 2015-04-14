@@ -1,0 +1,39 @@
+r
+healthy = read.csv("healthy.csv", header=FALSE)#
+healthyMatrix = as.matrix(healthy)#
+str(healthyMatrix)#
+#
+# Plot image#
+image(healthyMatrix,axes=FALSE,col=grey(seq(0,1,length=256)))#
+#
+# Hierarchial clustering#
+healthyVector = as.vector(healthyMatrix)
+healthy = read.csv("healthy.csv", header=FALSE)#
+healthyMatrix = as.matrix(healthy)#
+str(healthyMatrix)#
+#
+# Plot image#
+image(healthyMatrix,axes=FALSE,col=grey(seq(0,1,length=256)))#
+#
+# Hierarchial clustering#
+healthyVector = as.vector(healthyMatrix)
+k=5
+set.seed(1)
+KMC = kmeans(healthyVector, centers = k, iter.max=1000)
+str(KMC)
+healthyClusters = KMC$cluster
+KMC$centers[2]
+dim(healthyClusters) = c(nrow(healthyMatrix), ncol(healthyMatrix))
+image(healthyClusters, axes=FALSE, col = rainbow(k))
+read.csv("tumor.csv",header=FALSE)
+tumor = read.csv("tumor.csv",header=FALSE)
+tumorMatrix = as.matrix(tumor)
+tumorVector = as.vector(tumorMatrix)
+install.packages("flexcust")
+install.packages("flexcust")
+library(flexclust)
+library(flexclust)
+KMC.kcca = as.kcca(KMC, healthyVector)
+tumorClusters = predict(KMC.kcca, newdata=tumorVector)
+dim(tumorClusters) = c(nrow(tumorMatrix), ncol(tumorMatrix))
+image(tumorClusters, axes=FALSE, col=rainbow(k))
