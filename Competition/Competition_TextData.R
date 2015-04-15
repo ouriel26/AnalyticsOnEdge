@@ -88,3 +88,46 @@ write.csv(MySubmission, "SubmissionHeadlineLog.csv", row.names=FALSE)
 # You should upload the submission "SubmissionHeadlineLog.csv" on the Kaggle website to use this as a submission to the competition
 
 # This script file was just designed to help you get started - to do well in the competition, you will need to build better models!
+
+HeadlineWordsTrain2$WordsOK = (rowSums(HeadlineWordsTrain2)-HeadlineWordsTrain2$WordCount-HeadlineWordsTrain2$Popular) >=2
+
+CorpusAbstract = Corpus(VectorSource(c(NewsTrain$Abstract, NewsTest$Abstract)))
+CorpusAbstract = tm_map(CorpusAbstract, tolower)
+CorpusAbstract = tm_map(CorpusAbstract, PlainTextDocument)
+CorpusAbstract = tm_map(CorpusAbstract, removePunctuation)
+CorpusAbstract = tm_map(CorpusAbstract, removeWords, stopwords("english"))
+
+CorpusAbstract = tm_map(CorpusAbstract, stemDocument)
+dtmAbstract = DocumentTermMatrix(CorpusAbstract)
+sparseAbstract = removeSparseTerms(dtmAbstract, 0.99)
+AbstractWords = as.data.frame(as.matrix(sparseAbstract))
+colnames(AbstractWords) = make.names(colnames(AbstractWords))
+AbstractWordsTrain = head(AbstractWords, nrow(NewsTrain))
+AbstractWordsTest = tail(AbstractWords, nrow(NewsTest))
+AbstractWordsTrain$Popular = NewsTrain$Popular
+AbstractWordsTrain$WordCount = NewsTrain$WordCount
+AbstractWordsTest$WordCount = NewsTest$WordCount
+AbstractWordsLog= glm(Popular ~ ., data = AbstractWordsTrain, family=binomial)
+
+
+
+
+
+
+CorpusSnippet = Corpus(VectorSource(c(NewsTrain$Snippet, NewsTest$Snippet)))
+CorpusSnippet = tm_map(CorpusSnippet, tolower)
+CorpusSnippet = tm_map(CorpusSnippet, PlainTextDocument)
+CorpusSnippet = tm_map(CorpusSnippet, removePunctuation)
+CorpusSnippet = tm_map(CorpusSnippet, removeWords, stopwords("english"))
+CorpusSnippet = tm_map(CorpusSnippet, stemDocument)
+
+dtmSnippet = DocumentTermMatrix(CorpusSnippet)
+sparseSnippet = removeSparseTerms(dtmSnippet, 0.99)
+SnippetWords = as.data.frame(as.matrix(sparseSnippet))
+colnames(SnippetWords) = make.names(colnames(SnippetWords))
+SnippetWordsTrain = head(SnippetWords, nrow(NewsTrain))
+SnippetWordsTest = tail(SnippetWords, nrow(NewsTest))
+SnippetWordsTrain$Popular = NewsTrain$Popular
+SnippetWordsTrain$WordCount = NewsTrain$WordCount
+SnippetWordsTest$WordCount = NewsTest$WordCount
+SnippetWordsLog= glm(Popular ~ ., data = SnippetWordsTrain, family=binomial)
