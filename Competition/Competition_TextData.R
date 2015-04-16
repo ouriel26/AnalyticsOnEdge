@@ -131,3 +131,14 @@ SnippetWordsTrain$Popular = NewsTrain$Popular
 SnippetWordsTrain$WordCount = NewsTrain$WordCount
 SnippetWordsTest$WordCount = NewsTest$WordCount
 SnippetWordsLog= glm(Popular ~ ., data = SnippetWordsTrain, family=binomial)
+
+NewsTest = read.csv("http://static.wepingo.com/csv/NYTimesBlogTest.csv", stringsAsFactors = FALSE)
+NewsTrain = read.csv("http://static.wepingo.com/csv/NYTimesBlogTrain.csv", stringsAsFactors=FALSE)
+tapply(NewsTrain$WordCount, NewsTrain$NewsDesk, mean)
+tapply(NewsTrain$Popular, NewsTrain$NewsDesk, mean)
+barplot(tapply(NewsTrain$Popular, NewsTrain$NewsDesk, mean))
+table(NewsTrain$Popular, NewsTrain$NewsDesk)
+isOpEd = NewsTrain$NewsDesk == "OpEd"
+
+cor(tapply(NewsTrain$WordCount, NewsTrain$NewsDesk, mean), tapply(NewsTrain$Popular, NewsTrain$NewsDesk, mean)) 
+# ==> Correlation de 0.08 dans NewsTrain : Il n'ya pas de corrélation entre la poplarité moyenne par desk et le nombre de mots par desk
