@@ -142,3 +142,26 @@ isOpEd = NewsTrain$NewsDesk == "OpEd"
 
 cor(tapply(NewsTrain$WordCount, NewsTrain$NewsDesk, mean), tapply(NewsTrain$Popular, NewsTrain$NewsDesk, mean)) 
 # ==> Correlation de 0.08 dans NewsTrain : Il n'ya pas de corrélation entre la poplarité moyenne par desk et le nombre de mots par desk
+
+
+
+#Hypothèse 1 : Abstract 0.995 + Bool(NewsDesk == OpEd)
+CorpusAbstract = Corpus(VectorSource(c(NewsTrain$Abstract, NewsTest$Abstract)))
+CorpusAbstract = tm_map(CorpusAbstract, tolower)
+CorpusAbstract = tm_map(CorpusAbstract, PlainTextDocument)
+CorpusAbstract = tm_map(CorpusAbstract, removePunctuation)
+CorpusAbstract = tm_map(CorpusAbstract, removeWords, stopwords("english"))
+
+CorpusAbstract = tm_map(CorpusAbstract, stemDocument)
+dtmAbstract = DocumentTermMatrix(CorpusAbstract)
+sparseAbstract = removeSparseTerms(dtmAbstract, 0.995)
+AbstractWords = as.data.frame(as.matrix(sparseAbstract))
+colnames(AbstractWords) = make.names(colnames(AbstractWords))
+AbstractWordsTrain = head(AbstractWords, nrow(NewsTrain))
+AbstractWordsTest = tail(AbstractWords, nrow(NewsTest))
+AbstractWordsTrain$Popular = NewsTrain$Popular
+AbstractWordsTrain$WordCount = NewsTrain$WordCount
+AbstractWordsTest$WordCount = NewsTest$WordCount
+AbstractWordsTrain$isOpEd = NewsTrain$NewsDesk == "OpEd"
+AbstractWordsLog= glm(Popular ~ ., data = AbstractWordsTrain, family=binomial)
+#Fin Hypothèse 1 ##############################################################################################
