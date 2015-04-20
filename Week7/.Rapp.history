@@ -1,0 +1,18 @@
+WHO  = reqd.csv("WHO.csv")
+WHO  = read.csv("WHO.csv")
+install.packages("ggplt2")
+library(ggplot2)
+scatterplot = ggplot(WHO,aes(x=GNI, y=FertilityRate))
+scatterplot +geom_point()
+scatterplot + geom_point(colour = "blue", size = 3, shape = 17) + ggtitle("Fertility Rate vs. Gross National Income")
+scatterplot + geom_point(colour = "blue", size = 3, shape = 15) + ggtitle("Fertility Rate vs. Gross National Income")
+scatterplot = ggplot(WHO,aes(x=FertilityRate, y=Under15)) + geom_point()
+scatterplot = ggplot(WHO,aes(x=FertilityRate, y=Under15)) + geom_point(color = Region)
+str(WHO)
+scatterplot = ggplot(WHO,aes(x=FertilityRate, y=Under15)) + geom_point(color = "Region")
+scatterplot = ggplot(WHO,aes(x=FertilityRate, y=Under15)) + geom_point(color = "Region") + scale_color_brewer(palette="Dark2")
+scatterplot
+scatterplot = ggplot(WHO,aes(x=FertilityRate, y=Under15, color = Region)) + geom_point(color = "Region") + scale_color_brewer(palette="Dark2")
+scatterplot
+scatterplot = ggplot(WHO,aes(x=FertilityRate, y=Under15, color = Region)) + geom_point() + scale_color_brewer(palette="Dark2")
+scatterplot
